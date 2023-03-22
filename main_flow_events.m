@@ -1,28 +1,27 @@
 clear all;clc;close all
 %% import events
-% events.data_path = '/Users/winstonwang/Google_Drive/Data/DAVIS_events/';
-% events.data_folder = 'shapes_rotation';
-% events.data_fname = strcat(events.data_path,events.data_folder,'/events.txt');
-% read_info.e_fileID = fopen(events.data_fname,'r');
-% read_info.e_formatSpec = '%f %d %d %d';
-% read_info.e_size = [4 1e5];
-% events.e_data = fscanf(read_info.e_fileID,read_info.e_formatSpec,read_info.e_size);
-% fclose(read_info.e_fileID);
-% mkdir(events.data_folder)
-
+events.data_path = % put here the path to folder containing the `shapes_rotation` DAVIS dataset
+events.data_folder = 'shapes_rotation';
+events.data_fname = strcat(events.data_path,events.data_folder,'/events.txt');
+read_info.e_fileID = fopen(events.data_fname,'r');
+read_info.e_formatSpec = '%f %d %d %d';
+read_info.e_size = [4 1e5];
+events.e_data = fscanf(read_info.e_fileID,read_info.e_formatSpec,read_info.e_size);
+fclose(read_info.e_fileID);
+mkdir(events.data_folder)
 
 %% import images
-% images.data_path = strcat(events.data_path,events.data_folder);
-% read_info.i_infoID = fopen(strcat(images.data_path,'/images.txt'),'r');
-% read_info.i_formatSpec = '%f %s';
-% read_info.i_size = [2, Inf];
-% images.raw_read = textscan(read_info.i_infoID,read_info.i_formatSpec);
-% images.i_tstamp = images.raw_read{1,1};
-% images.i_filestr = images.raw_read{1,2};
-% fclose(read_info.i_infoID);
+images.data_path = strcat(events.data_path,events.data_folder);
+read_info.i_infoID = fopen(strcat(images.data_path,'/images.txt'),'r');
+read_info.i_formatSpec = '%f %s';
+read_info.i_size = [2, Inf];
+images.raw_read = textscan(read_info.i_infoID,read_info.i_formatSpec);
+images.i_tstamp = images.raw_read{1,1};
+images.i_filestr = images.raw_read{1,2};
+fclose(read_info.i_infoID);
 
 %% load previously-saved data
-load('shapes_rotation.mat');
+% load('shapes_rotation.mat');
 %% extract frames
 evim_test.start_time = 0.0;
 evim_test.end_time = 0.08;

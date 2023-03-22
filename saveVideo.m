@@ -9,7 +9,13 @@ if size(video,4) == 1
     [n1,n2,n3] = size(video);
     video = reshape(video,n1,n2,1,n3);
 end
-vi = VideoWriter(name,'MPEG-4');
+
+format = 'MPEG-4';
+if isunix
+    format = 'Motion JPEG AVI';
+end
+
+vi = VideoWriter(name,format);
 vi.FrameRate = framerate;
 vi.Quality = 80;
 open(vi);

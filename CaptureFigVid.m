@@ -62,10 +62,14 @@ ViewZ=ViewZ(:,1:2); %remove any extra columns
 end
 
 % Create video object 
-daObj=VideoWriter(FileName,'MPEG-4'); %my preferred format
+% MPEG-4 is only supported on macOS and Windows
+format = 'MPEG-4';
+if isunix
+   format = 'Motion JPEG AVI';
+end
+daObj=VideoWriter(FileName,format);
 daObj.Quality = 85;
-% daObj=VideoWriter(FileName); %for default video format. 
-% MPEG-4 CANNOT BE USED ON UNIX MACHINES
+
 % set values: 
 % Frame rate
 if isfield(OptionZ,'FrameRate')

@@ -78,8 +78,12 @@ if default      % Apply a default style
 
     hgexport(fig,'temp_dummy',style,'applystyle', true);
 
-else    % Apply an existing style, defined as in the Export dialog
+else
+    % Apply an existing style, defined as in the Export dialog
     % The files are in folder   fullfile(prefdir(0),'ExportSetup');
-    style = hgexport('readstyle',style_name);
-    hgexport(fig,'temp_dummy',style,'applystyle', true);
+    hgexport(fig,'temp_dummy');
+%     TODO: this call to hgexport always fails on my system; it's likely
+%     because I lack the formatting file that this references.
+%     style = hgexport('readstyle',style_name);
+%     hgexport(fig,'temp_dummy',style,'applystyle', true);
 end
